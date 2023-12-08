@@ -13,13 +13,13 @@ def main() -> int:
 	'''
 
 	engine = NFAEngine()
-	engine.update_input("b")
-	engine.add_node("q0")
-	engine.add_node("q1")
+	engine.update_input("a")
+	engine.add_state("q0")
+	engine.add_state("q1")
 	engine.set_start_node("q0")
 	engine.set_end_nodes(["q1"])
 	# add_transition(self, name1: str, name2: str, condition: str)
-	engine.add_transition("q0", "q1", "a")
+	engine.add_transition("q0", "q1", CharacterMatcher("a"))
 	engine.transition_states() # Run one step!
 	return 0
 
