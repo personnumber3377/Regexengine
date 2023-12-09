@@ -21,10 +21,10 @@ class CharacterMatcher(Matcher):
 
 class EpsilonMatcher(Matcher):
 	def matches(self, char: str, i: int) -> bool:
-		if self.c == char:
-			return True
-		return False
+		#if self.c == char:
+		#	return True
+		return True
 	def getLabel(self) -> str:
 		return self.c
 	def isEpsilon(self) -> bool:
-		return False
+		return True

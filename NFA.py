@@ -73,12 +73,13 @@ class NFAEngine:
 			print("Can not advance an already terminated state machine!")
 			return
 
-		stack = [[0, self.states[self.start_state]]]
+		stack = [[0, self.states[self.start_state], set()]] # The last element is the epsilon memory.
 
 
 		while len(stack):
 			# Pop off the state.
-			i, state = stack.pop(-1) # pop from the end of the stack
+			i, state, epsilon_memory = stack.pop(-1) # pop from the end of the stack
+			#print("stack == "+str(stack))
 			if state.name in self.end_nodes:
 				print("Match found!")
 				return True
@@ -88,7 +89,17 @@ class NFAEngine:
 				if matcher.matches(input_char, i): # if matches character
 					if not matcher.isEpsilon(): # If NOT an epsilon matcher, then advance the string for this path.
 						i += 1
-					stack.append([i, destination_state])
+						# Reset the memory
+						#print("Resetting memory")
+						epsilon_memory = set()
+					else:
+						# Check if the current state is in the epsilon memory. If it is, then do not append the state.
+						if state.name in epsilon_memory:
+							continue
+						else:
+							# Add the current name to the epsilon memory.
+							epsilon_memory.add(state.name)
+					stack.append([i, destination_state, epsilon_memory])
 		print("Match NOT found!")
 		return False
 
