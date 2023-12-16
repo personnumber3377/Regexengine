@@ -1,0 +1,12 @@
+chars == a(|)b
+Type of chars: <class 'antlr4.InputStream.InputStream'>
+Lexer: <grammar.regexLexer.regexLexer object at 0x7fbcdfca82b0>
+parser == <grammar.regexParser.regexParser object at 0x7fbcdf356160>
+(main (regex (expr (subexpr (atomicChar a))) (expr (subexpr (regexGroup ( (regex (alternative |)) )))) (expr (subexpr (atomicChar b)))) <EOF>)
+AstBuilder() == <astbuilder.AstBuilder object at 0x7fbcdf366d90>
+thing == [22]
+ctx.alternative() == []
+oof == [<grammar.regexParser.regexParser.ExprContext object at 0x7fbcdf356bb0>, <grammar.regexParser.regexParser.ExprContext object at 0x7fbcdf356f70>, <grammar.regexParser.regexParser.ExprContext object at 0x7fbcdf366c10>]
+type(oof) == <class 'list'>
+ctx.alternative() == [<grammar.regexParser.regexParser.AlternativeContext object at 0x7fbcdf366070>]
+alternative == None
