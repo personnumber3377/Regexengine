@@ -103,6 +103,15 @@ class NFAEngine:
 		print("Match NOT found!")
 		return False
 
+	def appendNFA(self, otherNFA, unionState):
+		for s in otherNFA.states:
+			self.states[s] = otherNFA.states[s]
+		del self.states[otherNFA.start_state] # This is simplified out.
+		for matcher, toTransition in otherNFA.states[otherNFA.start_state].transitions:
+			self.add_transition(unionState, toTransition.name, matcher)
+		# If the unionState is and end state, then the end states of the appended nfa are also end states of the fusion.
+		if self.end_nodes != [] and unionState in self.end_nodes:
+			self.end_nodes
 
 
 

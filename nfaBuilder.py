@@ -9,4 +9,37 @@ class NFABuilder:
 	def __init__(self):
 		self.stateNumber = 0
 
+	def _oneStepNFA(self, matcher): # This is used to create a transition where there are two states and a singular transition between them.
+		nfa = NFAEngine() # From NFA.py
+		# Get the two states required for this transition
+		a = self.newState()
+		b = self.newState()
+		nfa.add_state(a)
+		nfa.add_state(b)
+		nfa.add_transition(a,b,matcher) # The matcher will be passed to this function.
+		return nfa # Return the NFA, where there are only two states and a singular transition between them.
 
+	def _emptyExpression(self, character):
+		return self._oneStepNFA(EpsilonMatcher()) # from matchers.py
+
+	def _atomicPatternNFA(self, character):
+		matcher = EpsilonMatcher() if character == EPSILON else CharacterMatcher(character) # Check for epsilon
+		return self._oneStepNFA(matcher)
+
+	def newState(self):
+		c = 'q'+str(self.stateNumber)
+		self.stateNumber += 1
+		return c
+
+	def resetStateNumbers(self):
+		i = 0 # ???????????
+
+	def regexToNFA(self, regexAST): # This converts the regex abstract syntax tree to an NFA
+		self.resetStateNumbers()
+		return self._regexToNFA(regexAST)
+
+	def _regexToNFA(self, regexAST):
+		if isinstance(regexAST, RegexAlternative): # Check for "|" or similar.
+			return self._alternativeToNFA(regexAST) # Not yet defined
+		else:
+			return self._singleRegexToNFA(regexAST) # Also not yet defined
